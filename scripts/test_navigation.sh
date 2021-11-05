@@ -1,7 +1,16 @@
- #!/bin/sh
- xterm -e " source devel/setup.bash " &
- xterm -e " roslaunch turtlebot_gazebo turtlebot_world.launch world_file:=/home/aordev/workspace/home-service-robot/src/world/abinshomeoffice.world " &
- sleep 10
- xterm -e " roslaunch turtlebot_gazebo amcl_demo.launch " &
- sleep 5
- xterm -e " roslaunch turtlebot_rviz_launchers view_navigation.launch "
+#!/bin/sh
+
+cd "$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"/../
+
+world_file_location="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"/world/abinshomeoffice.world
+map_file_location="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"/world/abinshomeoffice.pgm
+
+cd "$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"/../
+
+setup_file_location="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"/devel/setup.bash
+
+xterm -e " source $setup_file_location; roslaunch turtlebot_gazebo turtlebot_world.launch world_file:=$world_file_location " &
+sleep 10
+xterm -e " source $setup_file_location; roslaunch turtlebot_gazebo amcl_demo.launch map_file:=$map_file_location" &
+sleep 5
+xterm -e " source $setup_file_location; roslaunch turtlebot_rviz_launchers view_navigation.launch "
