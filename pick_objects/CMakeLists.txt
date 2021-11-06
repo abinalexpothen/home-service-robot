@@ -8,6 +8,8 @@ project(pick_objects)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+    roscpp
+    move_base_msgs
     actionlib
 )
 
@@ -141,7 +143,7 @@ target_link_libraries(pick_objects ${catkin_LIBRARIES})
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(pick_objects pick_objects_generate_messages_cpp)
+# add_dependencies(pick_objects move_base_msgs actionlib roscpp)
 
 
 #############

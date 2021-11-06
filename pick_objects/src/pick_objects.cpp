@@ -7,8 +7,8 @@ typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseCl
 
 int main(int argc, char** argv)
 {
-    // initialize simple_navigation_goals node
-    ros::init(argc, argv, "simple_navigation_goals");
+    // initialize pick_objects node
+    ros::init(argc, argv, "pick_objects");
 
     // tell the action client that we want to spin a thread by default
     MoveBaseClient ac("move_base", true);
@@ -22,15 +22,15 @@ int main(int argc, char** argv)
     move_base_msgs::MoveBaseGoal goal;
 
     // set up the frame parameters
-    goal.target_pose.header.frame_id = "base_link";
+    goal.target_pose.header.frame_id = "map";
     goal.target_pose.header.stamp = ros::Time::now();
 
-    // define a position and orientation for the robot to reach
-    goal.target_pose.pose.position.x = 1.0;
+    // define pick goal for the robot
+    goal.target_pose.pose.position.x = -4.0;
+    goal.target_pose.pose.position.y = -2.5;
     goal.target_pose.pose.orientation.w = 1.0;
 
-    // send the goal position and orientation for the robot to reach
-    ROS_INFO("Sending goal");
+    ROS_INFO("Sending pick goal");
     ac.sendGoal(goal);
 
     // wait an infinite time for the results
@@ -39,12 +39,38 @@ int main(int argc, char** argv)
     // check if robot reached its goal
     if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
     {
-        ROS_INFO("Hooray, the base moved 1 meter forward");
+        ROS_INFO("Reached pickup zone in map frame.");
     }
     else
     {
-        ROS_INFO("The base failed to move forward 1 meter for some reason");
+        ROS_INFO("Failed to reach pickup zone.");
     }
+
+    // wait for 5 seconds after reaching pick goal
+    ros::Duration(5).sleep();
+
+    // define drop off goal
+    goal.target_pose.pose.position.x = 1.0;
+    goal.target_pose.pose.position.y = -3.0;
+
+    ROS_INFO("Sending drop off goal");
+    ac.sendGoal(goal);
+
+    // wait an infinite time for the results
+    ac.waitForResult();
+
+    // check if robot reached its goal
+    if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+    {
+        ROS_INFO("Reached drop off zone in map frame.");
+    }
+    else
+    {
+        ROS_INFO("Failed to reach drop off zone.");
+    }
+
+    // wait for 5 seconds after reaching drop off
+    ros::Duration(5).sleep();
 
     return 0;
 }
