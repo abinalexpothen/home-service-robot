@@ -47,7 +47,7 @@ int main(int argc, char** argv)
     }
 
     // wait for 5 seconds after reaching pick goal
-    ros::Duration(5).sleep();
+    sleep(5);
 
     // define drop off goal
     goal.target_pose.pose.position.x = 1.0;
@@ -70,7 +70,7 @@ int main(int argc, char** argv)
     }
 
     // wait for 5 seconds after reaching drop off
-    ros::Duration(5).sleep();
+    sleep(5);
 
     return 0;
 }
