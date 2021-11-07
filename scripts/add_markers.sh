@@ -16,4 +16,4 @@ xterm -e " source $setup_file_location; roslaunch turtlebot_gazebo amcl_demo.lau
 sleep 5
 xterm -e " source $setup_file_location; rosrun rviz rviz -d $rviz_file_location" &
 sleep 8
-xterm -e " source $setup_file_location; rosrun add_markers add_markers"
+xterm -e " source $setup_file_location; rosrun add_markers add_markers _param:=addmarkers "

@@ -1,10 +1,18 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
+#include <vector>
+
+std::vector<double> PICKUP_LOC = {1.0, -3.0};
+std::vector<double> DROPOFF_LOC = {-4.0, -2.5};
 
 int main( int argc, char** argv )
 {
   ros::init(argc, argv, "add_markers");
-  ros::NodeHandle n;
+  ros::NodeHandle n("~");
+
+  std::string cmdparam;
+  n.getParam("param", cmdparam);
+
   ros::Rate r(5);
   ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("/visualization_marker", 1);
 
@@ -28,8 +36,8 @@ int main( int argc, char** argv )
   marker.type = shape;
 
   // Set the pose of the marker.  This is a full 6DOF pose relative to the frame/time specified in the header
-  marker.pose.position.x = 1.0;
-  marker.pose.position.y = -3.0;
+  marker.pose.position.x = PICKUP_LOC[0];
+  marker.pose.position.y = PICKUP_LOC[1];
   marker.pose.orientation.x = 0.0;
   marker.pose.orientation.y = 0.0;
   marker.pose.orientation.z = 0.0;
@@ -55,19 +63,35 @@ int main( int argc, char** argv )
     sleep(1);
   }
 
-  marker_pub.publish(marker);
-  
-  sleep(5);
+  if (cmdparam.compare("addmarkers") == 0)
+  {
+    // if executing add_markers.sh
+    ROS_INFO("Called from add_markers.sh");
 
-  marker.action = visualization_msgs::Marker::DELETE;
-  marker_pub.publish(marker);
-
-  sleep(5);
+    marker_pub.publish(marker);
   
-  marker.action = visualization_msgs::Marker::ADD;
-  marker.pose.position.x = -4.0;
-  marker.pose.position.y = -2.5;
-  marker_pub.publish(marker);
+    sleep(5);
+  
+    marker.action = visualization_msgs::Marker::DELETE;
+    marker_pub.publish(marker);
+  
+    sleep(5);
+    
+    marker.action = visualization_msgs::Marker::ADD;
+    marker.pose.position.x = DROPOFF_LOC[0];
+    marker.pose.position.y = DROPOFF_LOC[1];
+    marker_pub.publish(marker);
+  }
+  else if (cmdparam.compare("homeservice") == 0)
+  {
+    // if executing home_service.sh
+    ROS_INFO("Called from home_servie.sh");
+
+  }
+  else
+  {
+    ROS_INFO("Unknown call to add_markers");
+  }
 
   ROS_INFO("Exiting");
 
