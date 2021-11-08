@@ -3,8 +3,8 @@
 #include <actionlib/client/simple_action_client.h>
 #include<vector>
 
-std::vector<double> PICKUP_LOC = {1.0, -3.0};
-std::vector<double> DROPOFF_LOC = {-4.0, -2.5};
+std::vector<double> PICKUP_LOC = {3.0, 1.0};
+std::vector<double> DROPOFF_LOC = {2.5, -3.0};
 
 // define a client to send goal requests to the move_base server through a SimpleActionClient
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;

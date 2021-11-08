@@ -7,8 +7,8 @@ ros::Publisher marker_pub;
 visualization_msgs::Marker marker;
 
 double displacement_tolerance = 0.25;
-std::vector<double> PICKUP_LOC = {1.0, -3.0};
-std::vector<double> DROPOFF_LOC = {-4.0, -2.5};
+std::vector<double> PICKUP_LOC = {3.0, 1.0};
+std::vector<double> DROPOFF_LOC = {2.5, -3.0};
 
 // robot state machine
 enum robot_state
@@ -24,9 +24,8 @@ robot_state state = GOING_TO_PICKUP_ZONE;
 
 void process_odometry(const nav_msgs::Odometry::ConstPtr &msg)
 {
-  // adjust coordinates to account for 90 degree map rotation
-  double x = (msg->pose.pose.position.y);
-  double y = -(msg->pose.pose.position.x);
+  double x = msg->pose.pose.position.x;
+  double y = msg->pose.pose.position.y;
 
   switch(state)
   {
