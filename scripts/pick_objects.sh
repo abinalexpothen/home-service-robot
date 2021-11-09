@@ -11,8 +11,8 @@ setup_file_location="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"/deve
 
 xterm -e " source $setup_file_location; roslaunch turtlebot_gazebo turtlebot_world.launch world_file:=$world_file_location " &
 sleep 10
-xterm -e " source $setup_file_location; roslaunch turtlebot_gazebo amcl_demo.launch map_file:=$map_file_location" &
+xterm -e " source $setup_file_location; roslaunch turtlebot_gazebo amcl_demo.launch map_file:=$map_file_location " &
 sleep 5
 xterm -e " source $setup_file_location; roslaunch turtlebot_rviz_launchers view_navigation.launch " &
 sleep 8
-xterm -e " source $setup_file_location; rosrun pick_objects pick_objects"
+xterm -e " source $setup_file_location; rosrun pick_objects pick_objects "

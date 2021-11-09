@@ -6,7 +6,7 @@
 ros::Publisher marker_pub;
 visualization_msgs::Marker marker;
 
-double displacement_tolerance = 0.25;
+double displacement_tolerance = 0.3;
 std::vector<double> PICKUP_LOC = {3.0, 1.0};
 std::vector<double> DROPOFF_LOC = {2.5, -3.0};
 
