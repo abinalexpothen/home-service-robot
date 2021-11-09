@@ -1,12 +1,8 @@
 # home-service-robot
 
-This is the final project in a series of projects within the Udacity Robotics Nanodegree Program.
-
-## Summary
-ROS gmapping package is used to first create a map of the Gazebo world using a turtlebot equipped with depth cameras. Subsequently, adaptive monte-carlo localization is used to localize the robot within this known map. The navigation package is then used to plan the path to a goal location. Two sets of goals are specified and a package named *pick_objects* is used to drive the turtlebot towards the pick-up goal and subsequently to the drop-off zone. Another package named *add_markers* subscribes to the turtlebot odometry and uses the known pick-up and drop-off locations to draw markers, which simulate the picking up and dropping off actions.
+This is the final project in a series of projects within the Udacity Robotics Nanodegree Program. ROS gmapping package is used to first create a map of the Gazebo world using a turtlebot equipped with depth cameras. Subsequently, adaptive monte-carlo localization is used to localize the robot within this known map. The navigation package is then used to plan the path to a goal location. Two sets of goals are specified and a package named *pick_objects* is used to drive the turtlebot towards the pick-up goal and subsequently to the drop-off zone. Another package named *add_markers* subscribes to the turtlebot odometry and uses the known pick-up and drop-off locations to draw markers, which simulate the picking up and dropping off actions.
 
 ## Packages Used
-The following packages are used in this project:
 
 - **turtlebot_gazebo** is an official ROS package that simulates a robot with camera-based depth sensors in a gazebo world. The robot can be simulated within customs worlds by specifying the location of the file using the *world_file* parameter in the command-line call. It also provides the adaptive monte-carlo localization algorithm which is able to localize the robot within the known map of the world.
 
@@ -25,3 +21,15 @@ The following packages are used in this project:
 
 **Turtlebot gazebo running abinshomeoffice.world**
 ![default_gzclient_camera(1)-2021-11-08T22_02_56 207014](https://user-images.githubusercontent.com/23329551/140854408-d83cce56-9d93-4237-a277-bbdbe59ab578.jpg)
+
+**Turtlebot localizing using AMCL in the map created with gmapping**
+![rviz_screenshot_2021_11_08-23_01_59](https://user-images.githubusercontent.com/23329551/140859957-8aa620f6-f89b-40b7-8e44-fb25fb17f957.png)
+
+**Robot planning the trajectory to goal under obstacles with the pick_objects shell script **
+![rviz_screenshot_2021_11_08-23_09_26](https://user-images.githubusercontent.com/23329551/140860711-ce9fa169-a9e2-4042-ba09-8153eaabc755.png)
+
+**Red marker displayed at the dropoff zone with add_markers shell script**
+![rviz_screenshot_2021_11_08-23_15_31](https://user-images.githubusercontent.com/23329551/140861281-2c5e8e1d-e72f-44e5-a001-aaeb63a7d28a.png)
+
+**Pickup object in red and turtlebot trajectory while executing home_service shell script**
+![rviz_screenshot_2021_11_08-23_21_19](https://user-images.githubusercontent.com/23329551/140861713-3dca6960-914a-4372-8d4b-eab14fde5d3a.png)
